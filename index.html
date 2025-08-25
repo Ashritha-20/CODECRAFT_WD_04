@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio | Your Name</title>
+  <meta name="description" content="Personal portfolio of a web developer showcasing skills, projects, and experience." />
+
+  <!-- Google Font (optional) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: #111722;
+      --text: #e6edf3;
+      --muted: #9fb0c0;
+      --brand: #6ee7ff;
+      --brand-2: #a78bfa;
+      --accent: #22c55e;
+      --ring: rgba(110, 231, 255, 0.5);
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+    .light {
+      --bg: #f7fafc;
+      --panel: #ffffff;
+      --text: #0f1720;
+      --muted: #526071;
+      --brand: #2563eb;
+      --brand-2: #7c3aed;
+      --accent: #059669;
+      --ring: rgba(37, 99, 235, 0.35);
+      --shadow: 0 10px 30px rgba(2,6,23,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 700px at 80% -10%, rgba(110,231,255,0.15), transparent 55%),
+                  radial-gradient(900px 600px at -10% 80%, rgba(124,58,237,0.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    /* Header / Nav */
+    header {
+      position: sticky;
+      top: 0; z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      max-width: 1100px; margin: 0 auto; padding: 14px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: .2px; }
+    .brand span { color: var(--brand); }
+    nav ul { list-style: none; display: flex; gap: 18px; padding: 0; margin: 0; }
+    nav a { color: var(--text); text-decoration: none; font-weight: 600; opacity: .85; }
+    nav a:hover { opacity: 1; }
+
+    .btn {
+      appearance: none; border: 0; cursor: pointer; font-weight: 700; 
+      padding: 12px 16px; border-radius: 14px; transition: transform .08s ease;
+      box-shadow: var(--shadow);
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #001018; }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,.15); color: var(--text); }
+    .btn:active { transform: translateY(1px) scale(.99); }
+
+    /* Hero */
+    .section { padding: 80px 18px; }
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .kicker { color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .2em; font-size: .8rem; }
+    h1 { font-size: clamp(2.2rem, 4vw + 1rem, 4rem); line-height: 1.1; margin: 10px 0 14px; }
+    .lead { font-size: 1.05rem; color: var(--muted); max-width: 60ch; }
+    .hero-cta { display: flex; gap: 12px; margin-top: 24px; }
+
+    .hero-card {
+      background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 80%, transparent), var(--panel));
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 22px; padding: 18px; box-shadow: var(--shadow);
+      display: grid; gap: 12px; align-content: start;
+    }
+    .hero-photo {
+      width: 100%; aspect-ratio: 4/5; border-radius: 18px; overflow: hidden; position: relative;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.1); font-size: .85rem; color: var(--muted); }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px var(--ring); }
+
+    /* About */
+    .container { max-width: 1100px; margin: 0 auto; }
+    h2 { font-size: clamp(1.6rem, 2vw + 1rem, 2.2rem); margin: 0 0 18px; }
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .card { background: var(--panel); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
+    .timeline { position: relative; margin-left: 12px; }
+    .timeline::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: linear-gradient(var(--brand), transparent); }
+    .tl-item { position: relative; padding-left: 36px; margin: 18px 0; }
+    .tl-item::before { content: ""; position: absolute; left: 3px; top: .5em; width: 14px; height: 14px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 35%, transparent); }
+
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .skill { padding: 16px; border-radius: 14px; background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 75%, transparent), var(--panel)); border: 1px solid rgba(255,255,255,0.08); }
+    .skill h4 { margin: 0 0 8px; }
+    .bar { height: 10px; background: #0b1220; border-radius: 999px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+    .bar > span { display: block; height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); width: 0%; transition: width 1.2s cubic-bezier(.2,.8,.2,1); }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .project { position: relative; overflow: hidden; border-radius: 18px; background: var(--panel); border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); }
+    .project img { width: 100%; height: 160px; object-fit: cover; display: block; filter: saturate(1.1); }
+    .project .p-body { padding: 16px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { font-size: .75rem; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; color: var(--muted); }
+    .p-actions { display: flex; gap: 10px; margin-top: 12px; }
+    .p-actions a { text-decoration: none; }
+
+    /* Contact */
+    form { display: grid; gap: 12px; }
+    input, textarea { width: 100%; padding: 12px 14px; border-radius: 12px; background: #0b1220; color: var(--text); border: 1px solid rgba(255,255,255,0.12); outline: none; }
+    .light input, .light textarea { background: #f3f5f8; }
+    input:focus, textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring); }
+    textarea { min-height: 120px; resize: vertical; }
+
+    /* Footer */
+    footer { padding: 40px 18px; color: var(--muted); text-align: center; }
+
+    /* Utilities */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .muted { color: var(--muted); }
+    .sr { opacity: 0; transform: translateY(18px); transition: all .8s cubic-bezier(.2,.8,.2,1); }
+    .sr.revealed { opacity: 1; transform: none; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="nav">
+      <div class="brand">&lt;Your<span>Name</span>/&gt;</div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button id="themeToggle" class="btn btn-outline" aria-label="Toggle theme">🌗</button>
+    </div>
+  </header>
+
+  <!-- Hero / Home -->
+  <section id="home" class="section">
+    <div class="hero">
+      <div>
+        <div class="kicker sr">Web Developer • UI Engineer • Problem Solver</div>
+        <h1 class="sr" style="transition-delay:.05s">Hi, I build delightful, performant web experiences.</h1>
+        <p class="lead sr" style="transition-delay:.1s">I’m a front‑end focused developer crafting responsive UIs, accessible components, and full‑stack apps. I love turning ideas into polished products.</p>
+        <div class="hero-cta sr" style="transition-delay:.15s">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-outline">Contact Me</a>
+        </div>
+      </div>
+
+      <aside class="hero-card sr" style="transition-delay:.2s">
+        <div class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop" alt="Professional headshot" />
+        </div>
+        <div class="badge"><span class="dot"></span> Available for freelance & internships</div>
+        <div class="grid-2">
+          <div>
+            <strong>Based in</strong>
+            <div class="muted">Hyderabad, India</div>
+          </div>
+          <div>
+            <strong>Specialty</strong>
+            <div class="muted">Frontend & UX Engineering</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="sr">About Me</h2>
+      <div class="about">
+        <div class="card sr" style="transition-delay:.05s">
+          <h3>Background</h3>
+          <p class="muted">I’m a curious developer who enjoys blending clean code with thoughtful design. I focus on accessibility, performance, and developer experience.</p>
+          <p class="muted">When I’m not coding, I explore UI trends, contribute to open‑source, and prototype micro‑interactions.</p>
+        </div>
+        <div class="card sr" style="transition-delay:.1s">
+          <h3>Education & Experience</h3>
+          <div class="timeline">
+            <div class="tl-item">
+              <strong>B.Tech in Computer Science</strong>
+              <div class="muted">XYZ University • 2022 – 2026</div>
+            </div>
+            <div class="tl-item">
+              <strong>Frontend Intern</strong>
+              <div class="muted">Acme Labs • Summer 2025</div>
+            </div>
+            <div class="tl-item">
+              <strong>Freelance Web Developer</strong>
+              <div class="muted">2024 – Present</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="sr">Skills</h2>
+      <div class="skills-grid">
+        <div class="skill sr" style="transition-delay:.05s">
+          <h4>HTML & Accessibility</h4>
+          <div class="bar"><span data-skill="92"></span></div>
+          <p class="muted">Semantic markup, WAI‑ARIA, WCAG‑AA</p>
+        </div>
+        <div class="skill sr" style="transition-delay:.08s">
+          <h4>CSS & Design Systems</h4>
+          <div class="bar"><span data-skill="88"></span></div>
+          <p class="muted">Flexbox, Grid, Animations, BEM</p>
+        </div>
+        <div class="skill sr" style="transition-delay:.11s">
+          <h4>JavaScript (ES6+)</h4>
+          <div class="bar"><span data-skill="85"></span></div>
+          <p class="muted">SPA patterns, fetch, state</p>
+        </div>
+        <div class="skill sr" style="transition-delay:.14s">
+          <h4>React & Tooling</h4>
+          <div class="bar"><span data-skill="80"></span></div>
+          <p class="muted">Hooks, Router, Vite</p>
+        </div>
+        <div class="skill sr" style="transition-delay:.17s">
+          <h4>Node & APIs</h4>
+          <div class="bar"><span data-skill="70"></span></div>
+          <p class="muted">Express, REST, JWT</p>
+        </div>
+        <div class="skill sr" style="transition-delay:.2s">
+          <h4>DevOps Basics</h4>
+          <div class="bar"><span data-skill="60"></span></div>
+          <p class="muted">Git, CI/CD, Netlify/Vercel</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="sr">Featured Projects</h2>
+      <div class="projects">
+        <article class="project sr" style="transition-delay:.05s">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot" />
+          <div class="p-body">
+            <h3>TaskFlow – Productivity App</h3>
+            <p class="muted">A clean task manager with filters, stats, and local storage sync.</p>
+            <div class="tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+            </div>
+            <div class="p-actions">
+              <a class="btn btn-outline" href="#" target="_blank" rel="noreferrer">Live Demo</a>
+              <a class="btn btn-primary" href="#" target="_blank" rel="noreferrer">Source Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="project sr" style="transition-delay:.08s">
+          <img src="https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot" />
+          <div class="p-body">
+            <h3>ShopGrid – E‑commerce UI</h3>
+            <p class="muted">Responsive product grid with filters, sorting, and cart preview.</p>
+            <div class="tags">
+              <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Tailwind</span>
+            </div>
+            <div class="p-actions">
+              <a class="btn btn-outline" href="#" target="_blank" rel="noreferrer">Live Demo</a>
+              <a class="btn btn-primary" href="#" target="_blank" rel="noreferrer">Source Code</a>
+            </div>
+          </div>
+        </article>
+        <article class="project sr" style="transition-delay:.11s">
+          <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop" alt="Project screenshot" />
+          <div class="p-body">
+            <h3>DevBlog – Markdown CMS</h3>
+            <p class="muted">A static blog with MDX support, tags, and search.</p>
+            <div class="tags">
+              <span class="tag">Next.js</span><span class="tag">MDX</span><span class="tag">SSR</span>
+            </div>
+            <div class="p-actions">
+              <a class="btn btn-outline" href="#" target="_blank" rel="noreferrer">Live Demo</a>
+              <a class="btn btn-primary" href="#" target="_blank" rel="noreferrer">Source Code</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="sr">Contact</h2>
+      <div class="grid-2">
+        <div class="card sr" style="transition-delay:.05s">
+          <h3>Let’s build something great</h3>
+          <p class="muted">Have a project, internship, or collaboration in mind? Send a message and I’ll get back soon.</p>
+          <form onsubmit="event.preventDefault(); alert('Thanks! This demo form does not submit without a backend.');">
+            <label>
+              <span class="muted">Your Name</span>
+              <input required type="text" placeholder="Jane Doe" />
+            </label>
+            <label>
+              <span class="muted">Email</span>
+              <input required type="email" placeholder="jane@example.com" />
+            </label>
+            <label>
+              <span class="muted">Message</span>
+              <textarea required placeholder="Tell me about your idea…"></textarea>
+            </label>
+            <button class="btn btn-primary" type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="card sr" style="transition-delay:.1s">
+          <h3>Elsewhere</h3>
+          <ul class="muted" style="line-height:2; padding-left: 18px;">
+            <li><a href="#" target="_blank" rel="noreferrer">GitHub</a> – open‑source & experiments</li>
+            <li><a href="#" target="_blank" rel="noreferrer">LinkedIn</a> – resume & updates</li>
+            <li><a href="#" target="_blank" rel="noreferrer">Twitter</a> – thoughts & snippets</li>
+            <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Your Name • Crafted with passion ✨
+  </footer>
+
+  <script>
+    // Theme toggle with localStorage
+    const root = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') document.body.classList.add('light');
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // Simple scroll reveal
+    const revealables = document.querySelectorAll('.sr');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed'); });
+    }, { threshold: 0.15 });
+    revealables.forEach(el => io.observe(el));
+
+    // Animate skill bars when visible
+    const bars = document.querySelectorAll('.bar > span');
+    const barIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.width = e.target.dataset.skill + '%';
+          barIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    bars.forEach(b => barIO.observe(b));
+
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
